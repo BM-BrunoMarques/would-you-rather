@@ -1,6 +1,6 @@
-import { getInitialData } from '../utils/api'
+import { getInitialData } from '../Utils/api'
 import { receiveUsers } from '../actions/users'
-import { receiveTweets } from '../actions/tweets'
+import { receiveQuestions } from '../actions/questions'
 import { setAuthedUser } from '../actions/authedUser'
 
 //BFM DELETE
@@ -11,9 +11,9 @@ export function handleInitialData () {
     return getInitialData()
       .then(({users, questions }) => {
         dispatch(receiveUsers(users))
-        dispatch(receiveTweets(tweets))
-        //BFM TODO: Create a LOGIN method
+        dispatch(receiveQuestions(questions))
         dispatch(setAuthedUser(AUTHED_ID))
+        //BFM TODO: Create a LOGIN method
       })
   }
 }
