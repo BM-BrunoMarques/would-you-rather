@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import 'react-tabs/style/react-tabs.css';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 
 class QuestionPreview extends Component {
 
@@ -21,8 +21,10 @@ class QuestionPreview extends Component {
           <div>
             <div>
               <h2>Would you rather</h2>
-              ...{question.optionOne.text.slice(0,15)}...
-              
+              ...{question.optionOne.text.slice(0,14)}...
+              <Link to={`/question/${id}`} >
+                <button> View Poll </button>
+              </Link>
             </div>
           </div>
         </div>
