@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { handleSaveAnswer } from '../actions/questions'
+import { handleSaveAnswer } from '../actions/shared'
 import { Link, withRouter } from 'react-router-dom'
 
 class QuestionDetails extends Component {
@@ -23,42 +23,54 @@ class QuestionDetails extends Component {
   }
 
   render() {
-    const { Qid, author, question, authUser } = this.props
+    console.log(this.props)
+    const { Qid, author, question, authUser, answers, authAnswer, total, percent} = this.props
     const answered = Object.keys(authUser.answers).includes(Qid)
 
     return (
       <div className='questDetails'>
         <div className='header'>
-          {answered === true
-            ? `Asked by ${author.name}`
-            : `${author.name} asks:`}
+{answered === false
+            ? `${author.name} asks:`
+            : `Asked by ${author.name}`
+}
         </div>
         <div className='contains'>
           <div>
             <img src={author.avatarURL} />
           </div>
           <div>
-            <div>
-              <h2>Would you rather...</h2>
+{answered === false
+            ? <div>
+                <h2>Would you rather...</h2>
+                <form onSubmit={this.handleSubmit}>
+                  <div className="radio">
+                    <label>
+                      <input type="radio" name="vote" value="optionOne" onChange={this.formSelected} />
+                      {question.optionOne.text}
+                    </label>
+                  </div>
+                  <div className="radio">
+                    <label>
+                      <input type="radio" name="vote" value="optionTwo" onChange={this.formSelected} />
+                      {question.optionTwo.text}
+                    </label>
+                  </div>
+                  <button disabled={this.state.selectedOption === ''} onClick={this.handleSubmit}>Submit</button>
+                </form>
+              </div>
+            : <div>
+                <h2>Results:</h2>
+                {Object.keys(answers).map((k, ind) => (
+                  <div key={k} className={authAnswer === k ? 'selected' : null}>
+                    <p>Would you rather {answers[k].text}?</p>
+                    <div className='pollbar'><div className='percent' style={{width: `${percent[ind]}%`}}> <span>{percent[ind]}%</span> </div></div>
+                    {answers[k].votes.length} out of {total} Votes
 
-              <form onSubmit={this.handleSubmit}>
-                <div className="radio">
-                  <label>
-                    <input type="radio" name="vote" value="optionOne" onChange={this.formSelected} />
-                    {question.optionOne.text}
-                  </label>
-                </div>
-                <div className="radio">
-                  <label>
-                    <input type="radio" name="vote" value="optionTwo" onChange={this.formSelected} />
-                    {question.optionTwo.text}
-                  </label>
-                </div>
-                <button disabled={this.state.selectedOption === ''} onClick={this.handleSubmit}>Submit</button>
-              </form>
-
-
-            </div>
+                  </div>
+                ))}
+              </div>
+}
           </div>
         </div>
       </div>
@@ -69,12 +81,26 @@ class QuestionDetails extends Component {
 
 function mapStateToProps (state, props) {
   const { id } = props.match.params
+  const question = state.questions[id]
+  const authUser = state.users[state.authedUser]
+
+  const {optionOne, optionTwo} = question
+  const answers = {optionOne, optionTwo}
+
+  const total = optionOne.votes.length + optionTwo.votes.length;
+  const percent = [optionOne.votes.length * 100 / total, optionTwo.votes.length * 100 / total]
 
   return {
     Qid: id,
-    question: state.questions[id],
-    author: state.users[state.questions[id].author],
-    authUser: state.users[state.authedUser]
+    question,
+    author: state.users[question.author],
+    authUser,
+
+    authAnswer: authUser.answers[id],
+    answers,
+
+    total,
+    percent
   }
 }
 

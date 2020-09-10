@@ -5,9 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 class QuestionPreview extends Component {
 
   render() {
-    console.log(this.props)
     const {question, author, id} = this.props
-    console .log('here', question, author)
 
     return (
       <div className='preview container'>

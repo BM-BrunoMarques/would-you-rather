@@ -1,0 +1,233 @@
+webpackHotUpdate("main",{
+
+/***/ "./src/components/QuestionDetails.js":
+/*!*******************************************!*\
+  !*** ./src/components/QuestionDetails.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_shared__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/shared */ "./src/actions/shared.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+var _jsxFileName = "C:\\DEV\\PROJECT-REACT-REDUX\\would-you-rather\\src\\components\\QuestionDetails.js";
+
+
+
+
+
+class QuestionDetails extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
+  constructor(...args) {
+    super(...args);
+    this.state = {
+      selectedOption: ''
+    };
+
+    this.formSelected = e => {
+      this.setState({
+        selectedOption: e.target.value
+      });
+    };
+
+    this.handleSubmit = e => {
+      e.preventDefault();
+      const {
+        Qid,
+        dispatch
+      } = this.props;
+      const answer = this.state.selectedOption;
+      dispatch(Object(_actions_shared__WEBPACK_IMPORTED_MODULE_2__["handleSaveAnswer"])(Qid, answer));
+    };
+  }
+
+  render() {
+    console.log(this.props);
+    const {
+      Qid,
+      author,
+      question,
+      authUser
+    } = this.props;
+    const answered = Object.keys(authUser.answers).includes(Qid);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "questDetails",
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 31,
+        columnNumber: 7
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "header",
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 32,
+        columnNumber: 9
+      }
+    }, answered === false ? `${author.name} asks:` : `Asked by ${author.name}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "contains",
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 38,
+        columnNumber: 9
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 39,
+        columnNumber: 11
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      src: author.avatarURL,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 40,
+        columnNumber: 13
+      }
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 42,
+        columnNumber: 11
+      }
+    }, answered === false ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 44,
+        columnNumber: 15
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 45,
+        columnNumber: 17
+      }
+    }, "Would you rather..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      onSubmit: this.handleSubmit,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 46,
+        columnNumber: 17
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "radio",
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 47,
+        columnNumber: 19
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 48,
+        columnNumber: 21
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      type: "radio",
+      name: "vote",
+      value: "optionOne",
+      onChange: this.formSelected,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 49,
+        columnNumber: 23
+      }
+    }), question.optionOne.text)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "radio",
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 53,
+        columnNumber: 19
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 54,
+        columnNumber: 21
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      type: "radio",
+      name: "vote",
+      value: "optionTwo",
+      onChange: this.formSelected,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 55,
+        columnNumber: 23
+      }
+    }), question.optionTwo.text)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      disabled: this.state.selectedOption === '',
+      onClick: this.handleSubmit,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 59,
+        columnNumber: 19
+      }
+    }, "Submit"))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 62,
+        columnNumber: 15
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 63,
+        columnNumber: 17
+      }
+    }, "Results:")))));
+  }
+
+}
+
+function mapStateToProps(state, props) {
+  const {
+    id
+  } = props.match.params;
+  const question = state.questions[id];
+  const authUser = state.users[state.authedUser];
+  const {
+    optionOne,
+    optionTwo
+  } = question;
+  const answers = {
+    optionOne,
+    optionTwo
+  };
+  return {
+    Qid: id,
+    question,
+    author: state.users[question.author],
+    authUser,
+    authAnswer: authUser.answers[id],
+    answers
+  };
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(QuestionDetails));
+
+/***/ })
+
+})
+//# sourceMappingURL=main.379c82e4bf54012da0b2.hot-update.js.map

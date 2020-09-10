@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import Dashboard from './Dashboard'
+import NewQuestion from './NewQuestion'
 // temporary
 import QuestionDetails from './QuestionDetails'
 
@@ -17,7 +18,7 @@ class App extends Component {
           {this.props.loading === true
             ? null
             : <div>
-                <Route path='/' exact component={Dashboard} />
+                <Route path='/' exact component={NewQuestion} />
                 <Route path='/question/:id' component={QuestionDetails} />
               </div>}
         </Fragment>

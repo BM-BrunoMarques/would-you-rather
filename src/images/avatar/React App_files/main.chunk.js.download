@@ -1,0 +1,1276 @@
+(this["webpackJsonpwould-you-rather"] = this["webpackJsonpwould-you-rather"] || []).push([["main"],{
+
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./src/index.css":
+/*!**************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-3-1!./node_modules/postcss-loader/src??postcss!./src/index.css ***!
+  \**************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+exports = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+exports.push([module.i, "body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n", ""]);
+// Exports
+module.exports = exports;
+
+
+/***/ }),
+
+/***/ "./src/actions/authedUser.js":
+/*!***********************************!*\
+  !*** ./src/actions/authedUser.js ***!
+  \***********************************/
+/*! exports provided: SET_AUTHED_USER, setAuthedUser */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_AUTHED_USER", function() { return SET_AUTHED_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setAuthedUser", function() { return setAuthedUser; });
+const SET_AUTHED_USER = 'SET_AUTHED_USER';
+function setAuthedUser(id) {
+  return {
+    type: SET_AUTHED_USER,
+    id
+  };
+}
+
+/***/ }),
+
+/***/ "./src/actions/questions.js":
+/*!**********************************!*\
+  !*** ./src/actions/questions.js ***!
+  \**********************************/
+/*! exports provided: RECEIVE_QUESTIONS, SAVE_QUESTION_ANSWER, receiveQuestions, saveQuestAnswer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_QUESTIONS", function() { return RECEIVE_QUESTIONS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SAVE_QUESTION_ANSWER", function() { return SAVE_QUESTION_ANSWER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveQuestions", function() { return receiveQuestions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveQuestAnswer", function() { return saveQuestAnswer; });
+const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
+const SAVE_QUESTION_ANSWER = 'SAVE_QUESTION_ANSWER';
+function receiveQuestions(questions) {
+  return {
+    type: RECEIVE_QUESTIONS,
+    questions
+  };
+}
+function saveQuestAnswer(authedUser, qid, answer) {
+  return {
+    type: SAVE_QUESTION_ANSWER,
+    authedUser,
+    qid,
+    answer
+  };
+}
+
+/***/ }),
+
+/***/ "./src/actions/shared.js":
+/*!*******************************!*\
+  !*** ./src/actions/shared.js ***!
+  \*******************************/
+/*! exports provided: handleInitialData, handleSaveAnswer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleInitialData", function() { return handleInitialData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "handleSaveAnswer", function() { return handleSaveAnswer; });
+/* harmony import */ var _utils_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/api */ "./src/utils/api.js");
+/* harmony import */ var _actions_users__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/users */ "./src/actions/users.js");
+/* harmony import */ var _actions_questions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/questions */ "./src/actions/questions.js");
+/* harmony import */ var _actions_authedUser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/authedUser */ "./src/actions/authedUser.js");
+
+
+
+
+
+
+ //BFM DELETE
+
+const AUTHED_ID = 'johndoe';
+function handleInitialData() {
+  return dispatch => {
+    return Object(_utils_api__WEBPACK_IMPORTED_MODULE_0__["getInitialData"])().then(({
+      users,
+      questions
+    }) => {
+      dispatch(Object(_actions_users__WEBPACK_IMPORTED_MODULE_1__["receiveUsers"])(users));
+      dispatch(Object(_actions_questions__WEBPACK_IMPORTED_MODULE_2__["receiveQuestions"])(questions));
+      dispatch(Object(_actions_authedUser__WEBPACK_IMPORTED_MODULE_3__["setAuthedUser"])(AUTHED_ID)); //BFM TODO: Create a LOGIN method
+    });
+  };
+}
+function handleSaveAnswer(qid, answer) {
+  return (dispatch, getState) => {
+    const {
+      authedUser
+    } = getState();
+    const info = {
+      authedUser,
+      qid,
+      answer
+    };
+    return Object(_utils_api__WEBPACK_IMPORTED_MODULE_0__["saveQuestionAnswer"])(info).catch(e => {
+      console.warn('Error in handleSaveAnswer: ', e);
+      alert('There was an error voting in the question. Try again.');
+    }).then(() => dispatch(Object(_actions_questions__WEBPACK_IMPORTED_MODULE_2__["saveQuestAnswer"])(authedUser, qid, answer))).then(() => dispatch(Object(_actions_users__WEBPACK_IMPORTED_MODULE_1__["saveUserAnswer"])(authedUser, qid, answer)));
+  };
+}
+
+/***/ }),
+
+/***/ "./src/actions/users.js":
+/*!******************************!*\
+  !*** ./src/actions/users.js ***!
+  \******************************/
+/*! exports provided: RECEIVE_USERS, SAVE_USER_ANSWER, receiveUsers, saveUserAnswer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_USERS", function() { return RECEIVE_USERS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SAVE_USER_ANSWER", function() { return SAVE_USER_ANSWER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveUsers", function() { return receiveUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveUserAnswer", function() { return saveUserAnswer; });
+const RECEIVE_USERS = 'RECEIVE_USERS';
+const SAVE_USER_ANSWER = 'SAVE_USER_ANSWER';
+function receiveUsers(users) {
+  return {
+    type: RECEIVE_USERS,
+    users
+  };
+}
+function saveUserAnswer(authedUser, qid, answer) {
+  return {
+    type: SAVE_USER_ANSWER,
+    authedUser,
+    qid,
+    answer
+  };
+}
+
+/***/ }),
+
+/***/ "./src/components/App.js":
+/*!*******************************!*\
+  !*** ./src/components/App.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_shared__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/shared */ "./src/actions/shared.js");
+/* harmony import */ var _Dashboard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Dashboard */ "./src/components/Dashboard.js");
+/* harmony import */ var _QuestionDetails__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./QuestionDetails */ "./src/components/QuestionDetails.js");
+var _jsxFileName = "C:\\DEV\\PROJECT-REACT-REDUX\\would-you-rather\\src\\components\\App.js";
+
+
+
+
+ // temporary
+
+
+
+class App extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
+  componentDidMount() {
+    this.props.dispatch(Object(_actions_shared__WEBPACK_IMPORTED_MODULE_3__["handleInitialData"])());
+  }
+
+  render() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["BrowserRouter"], {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 15,
+        columnNumber: 7
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 16,
+        columnNumber: 9
+      }
+    }, this.props.loading === true ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 19,
+        columnNumber: 15
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+      path: "/",
+      exact: true,
+      component: _Dashboard__WEBPACK_IMPORTED_MODULE_4__["default"],
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 20,
+        columnNumber: 17
+      }
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+      path: "/question/:id",
+      component: _QuestionDetails__WEBPACK_IMPORTED_MODULE_5__["default"],
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 21,
+        columnNumber: 17
+      }
+    }))));
+  }
+
+}
+
+function mapStateToProps({
+  authedUser
+}) {
+  return {
+    loading: authedUser === null,
+    authedUser
+  };
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps)(App));
+
+/***/ }),
+
+/***/ "./src/components/Dashboard.js":
+/*!*************************************!*\
+  !*** ./src/components/Dashboard.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_tabs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-tabs */ "./node_modules/react-tabs/esm/index.js");
+/* harmony import */ var react_tabs_style_react_tabs_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-tabs/style/react-tabs.css */ "./node_modules/react-tabs/style/react-tabs.css");
+/* harmony import */ var react_tabs_style_react_tabs_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_tabs_style_react_tabs_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _QuestionPreview__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./QuestionPreview */ "./src/components/QuestionPreview.js");
+var _jsxFileName = "C:\\DEV\\PROJECT-REACT-REDUX\\would-you-rather\\src\\components\\Dashboard.js";
+
+
+
+
+
+
+class Dashboard extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
+  render() {
+    console.log(this.props);
+    const {
+      authedUser,
+      answeredQ,
+      unansweredQ
+    } = this.props;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 14,
+        columnNumber: 7
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_1__["Tabs"], {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 16,
+        columnNumber: 9
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_1__["TabList"], {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 17,
+        columnNumber: 10
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_1__["Tab"], {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 18,
+        columnNumber: 12
+      }
+    }, "Answered Questions"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_1__["Tab"], {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 19,
+        columnNumber: 12
+      }
+    }, "Unanswered Questions")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_1__["TabPanel"], {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 22,
+        columnNumber: 10
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 23,
+        columnNumber: 10
+      }
+    }, answeredQ.map(id => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      key: id,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 25,
+        columnNumber: 13
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_QuestionPreview__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      id: id,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 26,
+        columnNumber: 15
+      }
+    }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_tabs__WEBPACK_IMPORTED_MODULE_1__["TabPanel"], {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 31,
+        columnNumber: 10
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 32,
+        columnNumber: 10
+      }
+    }, unansweredQ.map(id => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      key: id,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 34,
+        columnNumber: 13
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_QuestionPreview__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      id: id,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 35,
+        columnNumber: 15
+      }
+    })))))));
+  }
+
+}
+
+function mapStateToProps({
+  questions,
+  users,
+  authedUser
+}) {
+  let answeredQ = Object.keys(users[authedUser].answers).sort((a, b) => questions[b].timestamp - questions[a].timestamp);
+  const unansweredQ = Object.keys(questions).filter(Q => !answeredQ.includes(Q)).sort((a, b) => questions[b].timestamp - questions[a].timestamp);
+  return {
+    answeredQ: answeredQ,
+    unansweredQ: unansweredQ,
+    authedUser
+  };
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps)(Dashboard));
+
+/***/ }),
+
+/***/ "./src/components/QuestionDetails.js":
+/*!*******************************************!*\
+  !*** ./src/components/QuestionDetails.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_shared__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/shared */ "./src/actions/shared.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+var _jsxFileName = "C:\\DEV\\PROJECT-REACT-REDUX\\would-you-rather\\src\\components\\QuestionDetails.js";
+
+
+
+
+
+class QuestionDetails extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
+  constructor(...args) {
+    super(...args);
+    this.state = {
+      selectedOption: ''
+    };
+
+    this.formSelected = e => {
+      this.setState({
+        selectedOption: e.target.value
+      });
+    };
+
+    this.handleSubmit = e => {
+      e.preventDefault();
+      const {
+        Qid,
+        dispatch
+      } = this.props;
+      const answer = this.state.selectedOption;
+      dispatch(Object(_actions_shared__WEBPACK_IMPORTED_MODULE_2__["handleSaveAnswer"])(Qid, answer));
+    };
+  }
+
+  render() {
+    console.log(this.props);
+    const {
+      Qid,
+      author,
+      question,
+      authUser
+    } = this.props;
+    const answered = Object.keys(authUser.answers).includes(Qid);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "questDetails",
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 31,
+        columnNumber: 7
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "header",
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 32,
+        columnNumber: 9
+      }
+    }, answered === false ? `${author.name} asks:` : `Asked by ${author.name}`), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "contains",
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 38,
+        columnNumber: 9
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 39,
+        columnNumber: 11
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      src: author.avatarURL,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 40,
+        columnNumber: 13
+      }
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 42,
+        columnNumber: 11
+      }
+    }, answered === false ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 44,
+        columnNumber: 15
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 45,
+        columnNumber: 17
+      }
+    }, "Would you rather..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      onSubmit: this.handleSubmit,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 46,
+        columnNumber: 17
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "radio",
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 47,
+        columnNumber: 19
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 48,
+        columnNumber: 21
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      type: "radio",
+      name: "vote",
+      value: "optionOne",
+      onChange: this.formSelected,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 49,
+        columnNumber: 23
+      }
+    }), question.optionOne.text)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "radio",
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 53,
+        columnNumber: 19
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 54,
+        columnNumber: 21
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      type: "radio",
+      name: "vote",
+      value: "optionTwo",
+      onChange: this.formSelected,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 55,
+        columnNumber: 23
+      }
+    }), question.optionTwo.text)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      disabled: this.state.selectedOption === '',
+      onClick: this.handleSubmit,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 59,
+        columnNumber: 19
+      }
+    }, "Submit"))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 62,
+        columnNumber: 15
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 63,
+        columnNumber: 17
+      }
+    }, "Results:")))));
+  }
+
+}
+
+function mapStateToProps(state, props) {
+  const {
+    id
+  } = props.match.params;
+  const question = state.questions[id];
+  const authUser = state.users[state.authedUser];
+  const {
+    optionOne,
+    optionTwo
+  } = question;
+  const answers = {
+    optionOne,
+    optionTwo
+  };
+  return {
+    Qid: id,
+    question,
+    author: state.users[question.author],
+    authUser,
+    authAnswer: authUser.answers[id],
+    answers
+  };
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(QuestionDetails));
+
+/***/ }),
+
+/***/ "./src/components/QuestionPreview.js":
+/*!*******************************************!*\
+  !*** ./src/components/QuestionPreview.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+var _jsxFileName = "C:\\DEV\\PROJECT-REACT-REDUX\\would-you-rather\\src\\components\\QuestionPreview.js";
+
+
+
+
+class QuestionPreview extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
+  render() {
+    const {
+      question,
+      author,
+      id
+    } = this.props;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "preview container",
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 11,
+        columnNumber: 7
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "header",
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 12,
+        columnNumber: 9
+      }
+    }, author.name, " asks:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 15,
+        columnNumber: 9
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 16,
+        columnNumber: 11
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      src: author.avatarURL,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 17,
+        columnNumber: 13
+      }
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 19,
+        columnNumber: 11
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 20,
+        columnNumber: 13
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 21,
+        columnNumber: 15
+      }
+    }, "Would you rather"), "...", question.optionOne.text.slice(0, 14), "...", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+      to: `/question/${id}`,
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 23,
+        columnNumber: 15
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      __self: this,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 24,
+        columnNumber: 17
+      }
+    }, " View Poll "))))));
+  }
+
+}
+
+function mapStateToProps(state, {
+  id
+}) {
+  return {
+    question: state.questions[id],
+    author: state.users[state.questions[id].author]
+  };
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(QuestionPreview));
+
+/***/ }),
+
+/***/ "./src/index.css":
+/*!***********************!*\
+  !*** ./src/index.css ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../node_modules/css-loader/dist/cjs.js??ref--6-oneOf-3-1!../node_modules/postcss-loader/src??postcss!./index.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./src/index.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(true) {
+	module.hot.accept(/*! !../node_modules/css-loader/dist/cjs.js??ref--6-oneOf-3-1!../node_modules/postcss-loader/src??postcss!./index.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./src/index.css", function() {
+		var newContent = __webpack_require__(/*! !../node_modules/css-loader/dist/cjs.js??ref--6-oneOf-3-1!../node_modules/postcss-loader/src??postcss!./index.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./src/index.css");
+
+		if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+
+		var locals = (function(a, b) {
+			var key, idx = 0;
+
+			for(key in a) {
+				if(!b || a[key] !== b[key]) return false;
+				idx++;
+			}
+
+			for(key in b) idx--;
+
+			return idx === 0;
+		}(content.locals, newContent.locals));
+
+		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+		update(newContent);
+	});
+
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index.css */ "./src/index.css");
+/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_index_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/App */ "./src/components/App.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _reducers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./reducers */ "./src/reducers/index.js");
+/* harmony import */ var _middleware__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./middleware */ "./src/middleware/index.js");
+var _jsxFileName = "C:\\DEV\\PROJECT-REACT-REDUX\\would-you-rather\\src\\index.js";
+
+
+
+
+
+
+
+
+const store = Object(redux__WEBPACK_IMPORTED_MODULE_4__["createStore"])(_reducers__WEBPACK_IMPORTED_MODULE_6__["default"], _middleware__WEBPACK_IMPORTED_MODULE_7__["default"]);
+react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_5__["Provider"], {
+  store: store,
+  __self: undefined,
+  __source: {
+    fileName: _jsxFileName,
+    lineNumber: 13,
+    columnNumber: 3
+  }
+}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_App__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  __self: undefined,
+  __source: {
+    fileName: _jsxFileName,
+    lineNumber: 14,
+    columnNumber: 5
+  }
+})), document.getElementById('root'));
+
+/***/ }),
+
+/***/ "./src/middleware/index.js":
+/*!*********************************!*\
+  !*** ./src/middleware/index.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
+/* harmony import */ var _logger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./logger */ "./src/middleware/logger.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_2__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_0__["default"], _logger__WEBPACK_IMPORTED_MODULE_1__["default"]));
+
+/***/ }),
+
+/***/ "./src/middleware/logger.js":
+/*!**********************************!*\
+  !*** ./src/middleware/logger.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const logger = store => next => action => {
+  console.group(action.type);
+  console.log('The action: ', action);
+  const returnValue = next(action);
+  console.log('The new state: ', store.getState());
+  console.groupEnd();
+  return returnValue;
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (logger);
+
+/***/ }),
+
+/***/ "./src/reducers/authedUser.js":
+/*!************************************!*\
+  !*** ./src/reducers/authedUser.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return authedUser; });
+/* harmony import */ var _actions_authedUser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/authedUser */ "./src/actions/authedUser.js");
+
+function authedUser(state = null, action) {
+  switch (action.type) {
+    case _actions_authedUser__WEBPACK_IMPORTED_MODULE_0__["SET_AUTHED_USER"]:
+      return action.id;
+
+    default:
+      return state;
+  }
+}
+
+/***/ }),
+
+/***/ "./src/reducers/index.js":
+/*!*******************************!*\
+  !*** ./src/reducers/index.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _authedUser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./authedUser */ "./src/reducers/authedUser.js");
+/* harmony import */ var _users__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./users */ "./src/reducers/users.js");
+/* harmony import */ var _questions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./questions */ "./src/reducers/questions.js");
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
+  authedUser: _authedUser__WEBPACK_IMPORTED_MODULE_1__["default"],
+  users: _users__WEBPACK_IMPORTED_MODULE_2__["default"],
+  questions: _questions__WEBPACK_IMPORTED_MODULE_3__["default"]
+}));
+
+/***/ }),
+
+/***/ "./src/reducers/questions.js":
+/*!***********************************!*\
+  !*** ./src/reducers/questions.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return questions; });
+/* harmony import */ var _actions_questions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/questions */ "./src/actions/questions.js");
+
+function questions(state = {}, action) {
+  switch (action.type) {
+    case _actions_questions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_QUESTIONS"]:
+      return { ...state,
+        ...action.questions
+      };
+
+    case _actions_questions__WEBPACK_IMPORTED_MODULE_0__["SAVE_QUESTION_ANSWER"]:
+      const {
+        authedUser,
+        qid,
+        answer
+      } = action;
+      return { ...state,
+        [qid]: { ...state[qid],
+          [answer]: { ...state[qid][answer],
+            votes: state[qid][answer].votes.concat({
+              authedUser
+            })
+          }
+        }
+      };
+
+    default:
+      return state;
+  }
+}
+
+/***/ }),
+
+/***/ "./src/reducers/users.js":
+/*!*******************************!*\
+  !*** ./src/reducers/users.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return users; });
+/* harmony import */ var _actions_users__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/users */ "./src/actions/users.js");
+
+
+function users(state = {}, action) {
+  switch (action.type) {
+    case _actions_users__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_USERS"]:
+      return { ...state,
+        ...action.users
+      };
+
+    case _actions_users__WEBPACK_IMPORTED_MODULE_0__["SAVE_USER_ANSWER"]:
+      const {
+        authedUser,
+        qid,
+        answer
+      } = action;
+      return { ...state,
+        [authedUser]: { ...state[authedUser],
+          answers: { ...state[authedUser].answers,
+            [qid]: answer
+          }
+        }
+      };
+
+    default:
+      return state;
+  }
+}
+
+/***/ }),
+
+/***/ "./src/utils/_DATA.js":
+/*!****************************!*\
+  !*** ./src/utils/_DATA.js ***!
+  \****************************/
+/*! exports provided: _getUsers, _getQuestions, _saveQuestion, _saveQuestionAnswer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_getUsers", function() { return _getUsers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_getQuestions", function() { return _getQuestions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_saveQuestion", function() { return _saveQuestion; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "_saveQuestionAnswer", function() { return _saveQuestionAnswer; });
+let users = {
+  sarahedo: {
+    id: 'sarahedo',
+    name: 'Sarah Edo',
+    avatarURL: 'https://api.adorable.io/avatars/20/sara.hedo@adorable.io.png',
+    answers: {
+      "8xf0y6ziyjabvozdd253nd": 'optionOne',
+      "6ni6ok3ym7mf1p33lnez": 'optionTwo',
+      "am8ehyc8byjqgar0jgpub9": 'optionTwo',
+      "loxhs1bqm25b708cmbf3g": 'optionTwo'
+    },
+    questions: ['8xf0y6ziyjabvozdd253nd', 'am8ehyc8byjqgar0jgpub9']
+  },
+  tylermcginnis: {
+    id: 'tylermcginnis',
+    name: 'Tyler McGinnis',
+    avatarURL: 'https://api.adorable.io/avatars/20/tyler.mcginnis.png',
+    answers: {
+      "vthrdm985a262al8qx3do": 'optionOne',
+      "xj352vofupe1dqz9emx13r": 'optionTwo'
+    },
+    questions: ['loxhs1bqm25b708cmbf3g', 'vthrdm985a262al8qx3do']
+  },
+  johndoe: {
+    id: 'johndoe',
+    name: 'John Doe',
+    avatarURL: 'https://api.adorable.io/avatars/20/john.doe.png',
+    answers: {
+      "xj352vofupe1dqz9emx13r": 'optionOne',
+      "vthrdm985a262al8qx3do": 'optionTwo',
+      "6ni6ok3ym7mf1p33lnez": 'optionTwo'
+    },
+    questions: ['6ni6ok3ym7mf1p33lnez', 'xj352vofupe1dqz9emx13r']
+  }
+};
+let questions = {
+  "8xf0y6ziyjabvozdd253nd": {
+    id: '8xf0y6ziyjabvozdd253nd',
+    author: 'sarahedo',
+    timestamp: 1467166872634,
+    optionOne: {
+      votes: ['sarahedo'],
+      text: 'have horrible short term memory'
+    },
+    optionTwo: {
+      votes: [],
+      text: 'have horrible long term memory'
+    }
+  },
+  "6ni6ok3ym7mf1p33lnez": {
+    id: '6ni6ok3ym7mf1p33lnez',
+    author: 'johndoe',
+    timestamp: 1468479767190,
+    optionOne: {
+      votes: [],
+      text: 'become a superhero'
+    },
+    optionTwo: {
+      votes: ['johndoe', 'sarahedo'],
+      text: 'become a supervillain'
+    }
+  },
+  "am8ehyc8byjqgar0jgpub9": {
+    id: 'am8ehyc8byjqgar0jgpub9',
+    author: 'sarahedo',
+    timestamp: 1488579767190,
+    optionOne: {
+      votes: [],
+      text: 'be telekinetic'
+    },
+    optionTwo: {
+      votes: ['sarahedo'],
+      text: 'be telepathic'
+    }
+  },
+  "loxhs1bqm25b708cmbf3g": {
+    id: 'loxhs1bqm25b708cmbf3g',
+    author: 'tylermcginnis',
+    timestamp: 1482579767190,
+    optionOne: {
+      votes: [],
+      text: 'be a front-end developer'
+    },
+    optionTwo: {
+      votes: ['sarahedo'],
+      text: 'be a back-end developer'
+    }
+  },
+  "vthrdm985a262al8qx3do": {
+    id: 'vthrdm985a262al8qx3do',
+    author: 'tylermcginnis',
+    timestamp: 1489579767190,
+    optionOne: {
+      votes: ['tylermcginnis'],
+      text: 'find $50 yourself'
+    },
+    optionTwo: {
+      votes: ['johndoe'],
+      text: 'have your best friend find $500'
+    }
+  },
+  "xj352vofupe1dqz9emx13r": {
+    id: 'xj352vofupe1dqz9emx13r',
+    author: 'johndoe',
+    timestamp: 1493579767190,
+    optionOne: {
+      votes: ['johndoe'],
+      text: 'write JavaScript'
+    },
+    optionTwo: {
+      votes: ['tylermcginnis'],
+      text: 'write Swift'
+    }
+  }
+};
+
+function generateUID() {
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+}
+
+function _getUsers() {
+  return new Promise((res, rej) => {
+    setTimeout(() => res({ ...users
+    }), 1000);
+  });
+}
+function _getQuestions() {
+  return new Promise((res, rej) => {
+    setTimeout(() => res({ ...questions
+    }), 1000);
+  });
+}
+
+function formatQuestion({
+  optionOneText,
+  optionTwoText,
+  author
+}) {
+  return {
+    id: generateUID(),
+    timestamp: Date.now(),
+    author,
+    optionOne: {
+      votes: [],
+      text: optionOneText
+    },
+    optionTwo: {
+      votes: [],
+      text: optionTwoText
+    }
+  };
+}
+
+function _saveQuestion(question) {
+  return new Promise((res, rej) => {
+    const authedUser = question.author;
+    const formattedQuestion = formatQuestion(question);
+    setTimeout(() => {
+      questions = { ...questions,
+        [formattedQuestion.id]: formattedQuestion
+      };
+      users = { ...users,
+        [authedUser]: { ...users[authedUser],
+          questions: users[authedUser].questions.concat([formattedQuestion.id])
+        }
+      };
+      res(formattedQuestion);
+    }, 1000);
+  });
+}
+function _saveQuestionAnswer({
+  authedUser,
+  qid,
+  answer
+}) {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      users = { ...users,
+        [authedUser]: { ...users[authedUser],
+          answers: { ...users[authedUser].answers,
+            [qid]: answer
+          }
+        }
+      };
+      questions = { ...questions,
+        [qid]: { ...questions[qid],
+          [answer]: { ...questions[qid][answer],
+            votes: questions[qid][answer].votes.concat([authedUser])
+          }
+        }
+      };
+      res();
+    }, 500);
+  });
+}
+
+/***/ }),
+
+/***/ "./src/utils/api.js":
+/*!**************************!*\
+  !*** ./src/utils/api.js ***!
+  \**************************/
+/*! exports provided: getInitialData, saveQuestionAnswer */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getInitialData", function() { return getInitialData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveQuestionAnswer", function() { return saveQuestionAnswer; });
+/* harmony import */ var _DATA_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_DATA.js */ "./src/utils/_DATA.js");
+
+function getInitialData() {
+  return Promise.all([Object(_DATA_js__WEBPACK_IMPORTED_MODULE_0__["_getUsers"])(), Object(_DATA_js__WEBPACK_IMPORTED_MODULE_0__["_getQuestions"])()]).then(([users, questions]) => ({
+    users,
+    questions
+  }));
+}
+function saveQuestionAnswer(info) {
+  return Object(_DATA_js__WEBPACK_IMPORTED_MODULE_0__["_saveQuestionAnswer"])(info);
+} // export function _saveQuestion (info) {
+//   return _saveQuestion(info)
+// }
+//
+
+/***/ }),
+
+/***/ 1:
+/*!**************************************************************************************************************!*\
+  !*** multi (webpack)/hot/dev-server.js ./node_modules/react-dev-utils/webpackHotDevClient.js ./src/index.js ***!
+  \**************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! C:\DEV\PROJECT-REACT-REDUX\would-you-rather\node_modules\webpack\hot\dev-server.js */"./node_modules/webpack/hot/dev-server.js");
+__webpack_require__(/*! C:\DEV\PROJECT-REACT-REDUX\would-you-rather\node_modules\react-dev-utils\webpackHotDevClient.js */"./node_modules/react-dev-utils/webpackHotDevClient.js");
+module.exports = __webpack_require__(/*! C:\DEV\PROJECT-REACT-REDUX\would-you-rather\src\index.js */"./src/index.js");
+
+
+/***/ })
+
+},[[1,"runtime-main",0]]]);
+//# sourceMappingURL=main.chunk.js.map
