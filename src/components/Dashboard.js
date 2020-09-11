@@ -11,7 +11,7 @@ class Dashboard extends Component {
     const {authedUser, answeredQ, unansweredQ} = this.props
 
     return (
-      <div>
+      <div className='dashboard'>
 
         <Tabs>
          <TabList>
@@ -20,22 +20,14 @@ class Dashboard extends Component {
          </TabList>
 
          <TabPanel>
-         <ul>
           {answeredQ.map((id) => (
-            <li key={id}>
-              <QuestionPreview id={id} />
-            </li>
+            <QuestionPreview  key={id} id={id} />
           ))}
-        </ul>
          </TabPanel>
          <TabPanel>
-         <ul>
           {unansweredQ.map((id) => (
-            <li key={id}>
-              <QuestionPreview id={id} />
-            </li>
+            <QuestionPreview  key={id} id={id} />
           ))}
-        </ul>
          </TabPanel>
        </Tabs>
 

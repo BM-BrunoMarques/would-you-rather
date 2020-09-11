@@ -2,20 +2,25 @@ import { getInitialData, saveQuestionAnswer, saveQuestion } from '../utils/api'
 import { receiveUsers, saveUserAnswer, saveUserQuestionNew} from '../actions/users'
 import { receiveQuestions, saveQuestAnswer, saveQuestionNew } from '../actions/questions'
 import { setAuthedUser } from '../actions/authedUser'
+import { showLoading, hideLoading } from 'react-redux-loading'
 
 
-//BFM DELETE
-const AUTHED_ID = 'johndoe'
 
 export function handleInitialData () {
   return (dispatch) => {
+    dispatch(showLoading())
     return getInitialData()
       .then(({users, questions }) => {
         dispatch(receiveUsers(users))
         dispatch(receiveQuestions(questions))
-        dispatch(setAuthedUser(AUTHED_ID))
-        //BFM TODO: Create a LOGIN method
+        dispatch(hideLoading())
       })
+  }
+}
+
+export function handleSetAuthedUser(id){
+  return (dispatch) => {
+    dispatch(setAuthedUser(id))
   }
 }
 

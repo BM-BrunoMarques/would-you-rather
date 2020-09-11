@@ -2,36 +2,65 @@ import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
+import LoadingBar from 'react-redux-loading'
 import Dashboard from './Dashboard'
 import NewQuestion from './NewQuestion'
-// temporary
+import LeaderBoard from './LeaderBoard'
+import NavMenuBar from './NavMenuBar'
 import QuestionDetails from './QuestionDetails'
+import LoginPage from './LoginPage'
+import '../App.css'
 
 class App extends Component {
+  state = {
+    loading: true
+  }
   componentDidMount () {
-    this.props.dispatch(handleInitialData())
+    this.props.handleInitialData()
+    this.setState({
+      loading: false
+    });
   }
   render() {
+    console.log(this.state.loading)
     return (
       <Router>
         <Fragment>
-          {this.props.loading === true
-            ? null
-            : <div>
-                <Route path='/' exact component={NewQuestion} />
-                <Route path='/question/:id' component={QuestionDetails} />
-              </div>}
+          <LoadingBar />
+          <div className='container'>
+            {this.state.loading === true
+              ? null
+              : this.props.loggedIn === true
+                ?  <div>
+                    <NavMenuBar />
+                    <Route path='/' exact component={Dashboard} />
+                    <Route path='/NewQuestion' exact component={NewQuestion} />
+                    <Route path='/LeaderBoard' exact component={LeaderBoard} />
+                    <Route path='/question/:id' component={QuestionDetails} />
+                  </div>
+                : <div> <LoginPage /> </div>
+              }
+          </div>
         </Fragment>
       </Router>
     )
   }
 }
 
-function mapStateToProps ({ authedUser }) {
+function mapStateToProps (state, props) {
   return {
-    loading: authedUser === null,
-    authedUser
+    loggedIn: state.authedUser !== null,
+    loading: state.authedUser === null
   }
 }
 
-export default connect(mapStateToProps)(App)
+
+function mapDispatchToProps(dispatch) {
+  return {
+    handleInitialData: () => {
+      dispatch(handleInitialData())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

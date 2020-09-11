@@ -8,12 +8,12 @@ class QuestionPreview extends Component {
     const {question, author, id} = this.props
 
     return (
-      <div className='preview container'>
+      <div className='preview'>
         <div className='header'>
           {author.name} asks:
         </div>
         <div>
-          <div>
+          <div className='avatar'>
             <img src={author.avatarURL} />
           </div>
           <div>

@@ -64,7 +64,7 @@ class QuestionDetails extends Component {
                 {Object.keys(answers).map((k, ind) => (
                   <div key={k} className={authAnswer === k ? 'selected' : null}>
                     <p>Would you rather {answers[k].text}?</p>
-                    <div className='pollbar'><div className='percent' style={{width: `${percent[ind]}%`}}> <span>{percent[ind]}%</span> </div></div>
+                    <div className='pollbar'><div className='percent' style={{width: `${percent[ind].toFixed(0)}%`}}> <span>{percent[ind].toFixed(0)}%</span> </div></div>
                     {answers[k].votes.length} out of {total} Votes
 
                   </div>
@@ -88,7 +88,7 @@ function mapStateToProps (state, props) {
   const answers = {optionOne, optionTwo}
 
   const total = optionOne.votes.length + optionTwo.votes.length;
-  const percent = [optionOne.votes.length * 100 / total, optionTwo.votes.length * 100 / total]
+  let percent = [optionOne.votes.length * 100 / total, optionTwo.votes.length * 100 / total]
 
   return {
     Qid: id,

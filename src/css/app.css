@@ -1,0 +1,34 @@
+body {
+    background-color: #FFF;
+}
+
+.header {
+    background: #f9f8f9;
+}
+
+.logIn {
+    max-width: 535px;
+    text-align: center;
+    margin: 0 auto;
+    border: 1px solid #efeeef;
+}
+
+.logIn select {
+    width: 100%;
+    height: 35px;
+    border: 1px solid #efeeef;
+}
+
+.header h4 {
+    margin: 0!important;
+}
+
+.logIn button {
+    background-color: #32bea8;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    width: 100%;
+    height: 30px;
+    margin: 15px 0;
+}
