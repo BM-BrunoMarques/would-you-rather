@@ -209,7 +209,8 @@ ul.profile.nav .avatar img {
     padding: 4px 0;
     background: #fff;
     border-radius: 4px;
-    border-color: #30af9b;
+    border: 1px solid#30af9b;
+    color: #30af9b;
 }
 
 /*** DTAILS ***/
@@ -490,4 +491,57 @@ ul.profile.nav .avatar img {
 .wraper {
     float: left;
     width: 100%;
+}
+
+.NavMenu nav ul {
+    margin-bottom: 0px;
+}
+
+ul.menus.nav a, .profile.nav a {
+    padding: 7px 10px;
+    display: inline-block;
+    background: #32bea8;
+    margin-right: 1px;
+    color: white;
+    border-radius: 10px 10px 0 0;
+    text-decoration: none;
+}
+
+ul.menus.nav a:hover, .profile.nav a:hover{
+    text-decoration: underline
+}
+
+
+.notFound {
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+
+.notFound .Header {
+    font-size: 134px;
+    font-weight: 600;
+}
+
+
+.notFound span {
+    width: 100%;
+    float: left;
+}
+
+.notFound button {
+    margin: 10px;
+    padding: 5px 15px;
+    border-radius: 4px;
+    border: 1px solid;
+}
+
+button:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+button:disabled {
+    text-decoration: none!important;
+    cursor: default!important;
 }

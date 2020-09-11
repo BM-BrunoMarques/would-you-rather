@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from 'react';
-import { Link , withRouter} from "react-router-dom";
+import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import { connect } from 'react-redux'
-import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from "reactstrap";
+import { Nav, Navbar, NavbarBrand, NavLink } from "reactstrap";
 import { handleUnsetAuthedUser } from '../actions/authedUser'
 
 class NavMenuBar extends Component {
@@ -26,7 +26,7 @@ class NavMenuBar extends Component {
           {authUser && (
             <Nav className="profile">
               <span>Hello, {authUser.name}</span>
-              <div className='avatar'><img src={authUser.avatarURL} /></div>
+              <div className='avatar'><img alt='avatar' src={authUser.avatarURL} /></div>
               <NavLink onClick={this.handleLogOut} tag={Link} to='#'> Log Out </NavLink>
             </Nav>)
           }

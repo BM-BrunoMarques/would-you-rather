@@ -21,7 +21,6 @@ class App extends Component {
     this.props.handleInitialData()
   }
   render() {
-    console.log(this.state.loading)
     return (
       <Router>
         <Fragment>

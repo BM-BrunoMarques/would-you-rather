@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class QuestionPreview extends Component {
 
@@ -14,7 +14,7 @@ class QuestionPreview extends Component {
         </div>
         <div>
           <div className='avatar'>
-            <img src={author.avatarURL} />
+            <img alt='avatar' src={author.avatarURL} />
           </div>
           <div className='content'>
             <div>
