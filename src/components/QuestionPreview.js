@@ -16,9 +16,9 @@ class QuestionPreview extends Component {
           <div className='avatar'>
             <img src={author.avatarURL} />
           </div>
-          <div>
+          <div className='content'>
             <div>
-              <h2>Would you rather</h2>
+              <h4>Would you rather</h4>
               ...{question.optionOne.text.slice(0,14)}...
               <Link to={`/question/${id}`} >
                 <button> View Poll </button>

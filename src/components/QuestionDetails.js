@@ -28,7 +28,8 @@ class QuestionDetails extends Component {
     const answered = Object.keys(authUser.answers).includes(Qid)
 
     return (
-      <div className='questDetails'>
+      <div className='wrap'>
+        <div className='questDetails'>
         <div className='header'>
 {answered === false
             ? `${author.name} asks:`
@@ -36,13 +37,13 @@ class QuestionDetails extends Component {
 }
         </div>
         <div className='contains'>
-          <div>
+          <div className='avatar'>
             <img src={author.avatarURL} />
           </div>
-          <div>
+          <div className='content'>
 {answered === false
             ? <div>
-                <h2>Would you rather...</h2>
+                <h4>Would you rather...</h4>
                 <form onSubmit={this.handleSubmit}>
                   <div className="radio">
                     <label>
@@ -60,7 +61,7 @@ class QuestionDetails extends Component {
                 </form>
               </div>
             : <div>
-                <h2>Results:</h2>
+                <h3>Results:</h3>
                 {Object.keys(answers).map((k, ind) => (
                   <div key={k} className={authAnswer === k ? 'selected' : null}>
                     <p>Would you rather {answers[k].text}?</p>
@@ -72,6 +73,7 @@ class QuestionDetails extends Component {
               </div>
 }
           </div>
+        </div>
         </div>
       </div>
 

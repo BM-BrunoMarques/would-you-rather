@@ -163,3 +163,156 @@ ul.profile.nav .avatar img {
     color: #30af9b!important;
     font-weight: 500!important;
 }
+/****PREVIEW ****/
+.preview {
+    border-radius: 13px;
+    margin: 13px 0;
+    border: 1px solid #efeeef;
+    max-width: 100%;
+    float: left;
+    width: 100%;
+}
+
+.preview .header {
+    z-index: -1;
+    padding: 8px 13px;
+    border-bottom: 1px solid #efeeef;
+    font-weight: 700;
+}
+
+.preview .avatar {
+    float: left;
+    margin: 14px 0;
+    padding: 10px 40px;
+    border-right: 1px solid #efeeef;
+}
+
+.preview .avatar img {
+    width: 50px;
+    border-radius: 25px;
+}
+
+.preview .content {
+  float: left;
+  padding: 12px 12px;
+  min-width: 265px;
+}
+
+.preview .content h4 {
+    margin: 0 0 12px 0;
+}
+
+.preview .content a button {
+    width: 100%;
+    float: left;
+    margin-top: 8px;
+    padding: 4px 0;
+    background: #fff;
+    border-radius: 4px;
+    border-color: #30af9b;
+}
+
+/*** DTAILS ***/
+
+.questDetails {
+    border-radius: 13px;
+    margin: 13px 0;
+    border: 1px solid #efeeef;
+    max-width: 100%;
+    float: left;
+    width: 100%;
+}
+
+.questDetails .header {
+    z-index: -1;
+    padding: 8px 13px;
+    border-bottom: 1px solid #efeeef;
+    font-weight: 700;
+}
+
+.questDetails .avatar {
+    float: left;
+    padding: 10px 40px;
+    border-right: 1px solid #efeeef;
+}
+
+.questDetails .avatar img {
+    width: 100px;
+    border-radius: 50px;
+}
+
+.questDetails .content {
+  float: left;
+  padding: 12px 12px;
+  min-width: 265px;
+}
+
+.questDetails .content h4 {
+    margin: 0 0 12px 0;
+}
+
+.questDetails .content a button {
+    width: 100%;
+    float: left;
+    margin-top: 8px;
+    padding: 4px 0;
+    background: #fff;
+    border-radius: 4px;
+    border-color: #;
+}
+
+.questDetails button {
+    width: 100%;
+    padding: 7px 0;
+    color: white;
+    background: #30af9b;
+    margin: 7px 0;
+    border-radius: 4px;
+    border-color: #efeeef;
+}
+.questDetails button:disabled {
+  color: #30af9b!important;
+  background: #efeeef!important;
+}
+
+.wrap {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.questDetails .percent {
+    background: #30af9b;
+    float: left;
+    height: 100%;
+    border-radius: 3px;
+}
+
+.questDetails .pollbar {
+    background: #cadbdd;
+    width: 100%;
+    height: 28px;
+    margin: 0 0 2px 0;
+    border-radius: 3px;
+}
+
+.questDetails .pollbar span {
+    background: #30af9b;
+    color: white;
+    float: right;
+    margin: 2px 4px 0 0;
+}
+
+.questDetails .content > div > div {
+    font-weight: 600;
+    padding: 0 10px;
+    background: #f9f8f9;
+    border: 1px solid #efeeef;
+    margin: 10px 0px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.questDetails .content .selected {
+    background-color: #e2f8f9;
+    border-color: #30af9b;
+}
