@@ -15,17 +15,17 @@ class Dashboard extends Component {
 
         <Tabs>
          <TabList>
-           <Tab>Answered Questions</Tab>
-           <Tab>Unanswered Questions</Tab>
+          <Tab>Unanswered Questions</Tab>
+          <Tab>Answered Questions</Tab>
          </TabList>
 
          <TabPanel>
-          {answeredQ.map((id) => (
+          {unansweredQ.map((id) => (
             <QuestionPreview  key={id} id={id} />
           ))}
          </TabPanel>
          <TabPanel>
-          {unansweredQ.map((id) => (
+          {answeredQ.map((id) => (
             <QuestionPreview  key={id} id={id} />
           ))}
          </TabPanel>
