@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { handleSetAuthedUser } from '../actions/authedUser'
 
@@ -31,7 +31,7 @@ class LoginPage extends Component {
           <h4>Welcome to the Would You Rather App!</h4>
           <p>Please sign in to continue</p>
         </div>
-        <div className='logo'><img src='https://miro.medium.com/max/700/1*meCFnZ5MK_7Fu1ogYfBvNQ.png' /></div>
+        <div className='logo'><img alt='avatar' src='https://miro.medium.com/max/700/1*meCFnZ5MK_7Fu1ogYfBvNQ.png' /></div>
         <div>
           <span> Sign In </span>
           <form onSubmit={this.handleSubmit}>

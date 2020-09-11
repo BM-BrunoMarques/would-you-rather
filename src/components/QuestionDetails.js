@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleSaveAnswer } from '../actions/shared'
-import { Link, withRouter, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 class QuestionDetails extends Component {
   state = {
@@ -42,7 +42,7 @@ class QuestionDetails extends Component {
         </div>
         <div className='contains'>
           <div className='avatar'>
-            <img src={author.avatarURL} />
+            <img alt='avatar' src={author.avatarURL} />
           </div>
           <div className='content'>
 {answered === false

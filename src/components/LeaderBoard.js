@@ -11,7 +11,7 @@ class LeaderBoard extends Component {
         {users.map((user) => (
         <div key={user.id} className='ranks'>
           <div className='avatar'>
-            <img src={user.avatarURL} />
+            <img alt='avatar' src={user.avatarURL} />
           </div>
           <div className='container'>
             <div className='left'>
