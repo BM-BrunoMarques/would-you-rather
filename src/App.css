@@ -545,3 +545,7 @@ button:disabled {
     text-decoration: none!important;
     cursor: default!important;
 }
+
+.questDetails .content p {
+    width: 285px;
+}
