@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
-import { handleSetAuthedUser } from '../actions/shared'
+import { handleSetAuthedUser } from '../actions/authedUser'
 
 class LoginPage extends Component {
 
@@ -40,7 +40,7 @@ class LoginPage extends Component {
                 <select name='user' value={this.state.user} onChange={this.selectChange}>
                       <option disabled value=''> Select a user </option>
                   {Object.keys(users).map((u) => (
-                      <option value={u} key={u}>{users[u].name} </option>
+                      <option value={u} key={u}> {users[u].name}</option>
                   ))}
                 </select>
               </label>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleSaveAnswer } from '../actions/shared'
-import { Link, withRouter } from 'react-router-dom'
+import { Link, withRouter, Redirect } from 'react-router-dom'
 
 class QuestionDetails extends Component {
   state = {
@@ -23,7 +23,11 @@ class QuestionDetails extends Component {
   }
 
   render() {
-    console.log(this.props)
+    // this will handle 404 page for created questions
+    if (this.props.redirect === true) {
+      return <Redirect to='/NotFound' />
+    }
+
     const { Qid, author, question, authUser, answers, authAnswer, total, percent} = this.props
     const answered = Object.keys(authUser.answers).includes(Qid)
 
@@ -85,24 +89,32 @@ function mapStateToProps (state, props) {
   const { id } = props.match.params
   const question = state.questions[id]
   const authUser = state.users[state.authedUser]
+  // this will handle 404 page for created questions
+  if (typeof question !== "undefined") {
+      const {optionOne, optionTwo} = question
+      const answers = {optionOne, optionTwo}
 
-  const {optionOne, optionTwo} = question
-  const answers = {optionOne, optionTwo}
+      const total = optionOne.votes.length + optionTwo.votes.length;
+      let percent = [optionOne.votes.length * 100 / total, optionTwo.votes.length * 100 / total]
 
-  const total = optionOne.votes.length + optionTwo.votes.length;
-  let percent = [optionOne.votes.length * 100 / total, optionTwo.votes.length * 100 / total]
+      return {
+        Qid: id,
+        question,
+        author: state.users[question.author],
+        authUser,
 
-  return {
-    Qid: id,
-    question,
-    author: state.users[question.author],
-    authUser,
+        authAnswer: authUser.answers[id],
+        answers,
 
-    authAnswer: authUser.answers[id],
-    answers,
+        total,
+        percent,
 
-    total,
-    percent
+        redirect: false
+      }
+  }else{
+    return{
+      redirect: true
+    }
   }
 }
 

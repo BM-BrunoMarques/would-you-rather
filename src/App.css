@@ -275,8 +275,13 @@ ul.profile.nav .avatar img {
   background: #efeeef!important;
 }
 
-.wrap {
+.leaderBoard .wrap {
     max-width: 500px;
+    margin: 0 auto;
+}
+
+.wrap{
+    max-width: 570px;
     margin: 0 auto;
 }
 
@@ -288,7 +293,7 @@ ul.profile.nav .avatar img {
 }
 
 .questDetails .pollbar {
-    background: #cadbdd;
+    background: #afc0c2;
     width: 100%;
     height: 28px;
     margin: 0 0 2px 0;
@@ -296,10 +301,8 @@ ul.profile.nav .avatar img {
 }
 
 .questDetails .pollbar span {
-    background: #30af9b;
     color: white;
-    float: right;
-    margin: 2px 4px 0 0;
+    margin: 3px 4px 0 3px
 }
 
 .questDetails .content > div > div {
@@ -315,4 +318,176 @@ ul.profile.nav .avatar img {
 .questDetails .content .selected {
     background-color: #e2f8f9;
     border-color: #30af9b;
+    position: relative;
+}
+
+.questDetails .content .selected::after {
+    content: 'Your Vote';
+    position: absolute;
+    top: -7px;
+    right: -27px;
+    background: #d7ba27;
+    width: 40px;
+    padding: 8px 0px;
+    font-size: 12px;
+    color: #FFF;
+    border-radius: 45%;
+    line-height: 10px;
+}
+
+.newQuestion {
+    border-radius: 13px;
+    margin: 13px 0;
+    border: 1px solid #efeeef;
+    max-width: 100%;
+    float: left;
+    width: 100%;
+}
+
+.newQuestion .header {
+    z-index: -1;
+    padding: 8px 13px;
+    border-bottom: 1px solid #efeeef;
+    font-weight: 700;
+}
+
+
+.newQuestion .container {
+    padding: 13px;
+}
+
+.newQuestion input {
+    width: 100%;
+    border-radius: 4px;
+    padding: 7px 0;
+    border: 1px solid #efefef;
+    text-indent: 10px;
+}
+
+.newQuestion h2 {
+  text-align: center;
+  margin: 9px 0px;
+  font-size: 18px;
+}
+
+/* .newQuestion button {
+    width: 100%;
+    margin-top: 14px;
+    padding: 8px 0;
+    color: white;
+    border-radius: 4px;
+    background: green;
+} */
+
+.newQuestion button {
+    width: 100%;
+    padding: 7px 0;
+    color: white;
+    background: #30af9b;
+    margin: 12px 0;
+    border-radius: 4px;
+    border-color: #efeeef;
+    border: none;
+}
+.newQuestion button:disabled {
+  color: #30af9b!important;
+  background: #efeeef!important;
+  border: none;
+}
+
+/**LEADER BOARD**/
+
+.leaderBoard {
+    width: 100%;
+    float: left;
+}
+
+.leaderBoard .ranks {
+    border: 3px solid #efefef;
+    margin-top: 15px;
+    border-radius: 4px;
+    width: 100%;
+    float: left;
+    padding: 0 12px;
+}
+
+.leaderBoard .avatar {
+    float: left;
+    padding: 18px 18px 0 0;
+    margin: 10px 10px 18px 0;
+    border-right: 1px solid #efefef;
+}
+
+.leaderBoard.container {
+    float: left;
+}
+
+.leaderBoard .right {
+    float: right;
+    width: 80px;
+    text-align: center;
+    border: 1px solid #efefef;
+    margin-top: 21px;
+    height: 100px;
+}
+
+.leaderBoard .avatar img {
+    width: 93px;
+    border-radius: 45px;
+}
+
+.leaderBoard .details > p.first {
+    border-bottom: 2px solid #efefef;
+    margin: 0;
+    padding-bottom: 16px;
+    margin-bottom: 8px;
+}
+.leaderBoard .details > p {
+    margin: 0;
+}
+
+.leaderBoard .left {
+    float: left;
+    margin-top: 11px;
+    border-right: 1px solid #efefef;
+    padding-right: 10px;
+}
+
+.leaderBoard .details {
+    width: 250px;
+}
+
+.leaderBoard .details p span {
+    float: right;
+}
+
+.leaderBoard h3 {
+    margin: 0;
+}
+
+.leaderBoard .header {
+    background: #f9f8f9;
+    border-bottom: 2px solid #efefef;
+    display: block;
+    padding: 13px 0;
+    font-size: 12px;
+}
+
+.leaderBoard  .left .name h2 {
+    margin: 0 0 10px 0;
+}
+
+.leaderBoard span.score {
+    color: white;
+    background: #30af9b;
+    text-align: center;
+    padding: 8px 14px;
+    border-radius: 50%;
+    margin: 9px;
+    display: inline-block;
+}
+
+.wraper {
+    float: left;
+    width: 100%;
 }

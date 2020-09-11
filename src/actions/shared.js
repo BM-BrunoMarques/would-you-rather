@@ -18,11 +18,6 @@ export function handleInitialData () {
   }
 }
 
-export function handleSetAuthedUser(id){
-  return (dispatch) => {
-    dispatch(setAuthedUser(id))
-  }
-}
 
 export function handleSaveAnswer (qid, answer) {
   return (dispatch, getState) => {

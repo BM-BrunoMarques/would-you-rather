@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import LoadingBar from 'react-redux-loading'
@@ -9,6 +9,8 @@ import LeaderBoard from './LeaderBoard'
 import NavMenuBar from './NavMenuBar'
 import QuestionDetails from './QuestionDetails'
 import LoginPage from './LoginPage'
+import NotFound from './NotFound'
+
 import '../App.css'
 
 class App extends Component {
@@ -17,9 +19,6 @@ class App extends Component {
   }
   componentDidMount () {
     this.props.handleInitialData()
-    this.setState({
-      loading: false
-    });
   }
   render() {
     console.log(this.state.loading)
@@ -28,18 +27,19 @@ class App extends Component {
         <Fragment>
           <LoadingBar />
           <div className='container'>
-            {this.state.loading === true
-              ? null
-              : this.props.loggedIn === true
-                ?  <div>
-                    <NavMenuBar />
-                    <Route path='/' exact component={Dashboard} />
-                    <Route path='/NewQuestion' exact component={NewQuestion} />
-                    <Route path='/LeaderBoard' exact component={LeaderBoard} />
-                    <Route path='/question/:id' component={QuestionDetails} />
-                  </div>
-                : <div> <LoginPage /> </div>
-              }
+            <NavMenuBar />
+{this.props.loggedIn === false
+            ? <div className='wraper'>
+                <Route component={LoginPage}/>
+              </div>
+            : <Switch>
+                <Route exact path='/' component={Dashboard} />
+                <Route path='/add' exact component={NewQuestion} />
+                <Route path='/leaderboard' exact component={LeaderBoard} />
+                <Route path='/question/:id' component={QuestionDetails} />
+                <Route path='*' component={NotFound} />
+              </Switch>
+}
           </div>
         </Fragment>
       </Router>
@@ -50,7 +50,6 @@ class App extends Component {
 function mapStateToProps (state, props) {
   return {
     loggedIn: state.authedUser !== null,
-    loading: state.authedUser === null
   }
 }
 

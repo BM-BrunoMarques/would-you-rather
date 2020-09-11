@@ -7,28 +7,30 @@ class LeaderBoard extends Component {
     const {users} = this.props
     return (
       <div className='leaderBoard'>
-      {users.map((user) => (
-      <div key={user.id}>
-        <div className='avatar'>
-          <img src={user.avatarURL} />
-        </div>
-        <div className='container'>
-          <div className='left'>
-            <div className='name'>
-              <h2>{user.name}</h2>
+        <div className='wrap'>
+        {users.map((user) => (
+        <div key={user.id} className='ranks'>
+          <div className='avatar'>
+            <img src={user.avatarURL} />
+          </div>
+          <div className='container'>
+            <div className='left'>
+              <div className='name'>
+                <h2>{user.name}</h2>
+              </div>
+              <div className='details'>
+                <p className='first'>Answered questions <span>{Object.keys(user.answers).length}</span></p>
+                <p>Created questions <span>{user.questions.length}</span></p>
+              </div>
             </div>
-            <div className='details'>
-              <p>Answered questions <span>{Object.keys(user.answers).length}</span></p>
-              <p>Created questions <span>{user.questions.length}</span></p>
+            <div className='right'>
+              <span><h3 className='header'>Score</h3></span>
+              <span className='score'> {Object.keys(user.answers).length + user.questions.length} </span>
             </div>
           </div>
-          <div className='right'>
-            <span><h3>Score</h3></span>
-            <span className='score'> {Object.keys(user.answers).length + user.questions.length} </span>
-          </div>
         </div>
-      </div>
-      ))}
+        ))}
+        </div>
       </div>
     )
   }
