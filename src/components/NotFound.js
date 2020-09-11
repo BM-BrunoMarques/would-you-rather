@@ -1,9 +1,4 @@
 import React from "react"
-<<<<<<< HEAD
-=======
-import PropTypes from "prop-types"
-
->>>>>>> 5d5cedb16550339d24af279c11510acdb0b739ca
 
 const NotFound = ({ history }) => (
   <div className='notFound'>
